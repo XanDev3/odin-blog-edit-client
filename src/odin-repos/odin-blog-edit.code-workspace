@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"name": "odin-repos",
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.root": "/home/pi/odin_repos",
+		"liveServer.settings.multiRootWorkspaceName": "/home/alex",
+		"emmet.triggerExpansionOnTab": true,
+		"files.associations": {
+			"*.ejs": "html",
+			"*.css": "tailwindcss"
+		},
+		"emmet.includeLanguages": {
+			"javascript": "javascriptreact",
+			"ejs": "html"
+		},
+		"emmet.syntaxProfiles": {
+			"javascript": "jsx"
+		},
+		"html.format.templating": true,
+		"editor.quickSuggestions": {
+			"strings": "on"
+		}
+	}
+}
