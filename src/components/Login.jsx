@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react'
 import useAuth from '../hooks/useAuth.jsx'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from '../lib/axios.js'
-const LOGIN_URL = 'api/login';
+const LOGIN_URL = 'login';
 
 const Login = () => {
   // Login design from Dave Gray's Youtube videos called React Persistent User Auth w/ JWT and React Protected Routes | Role-Based Auth| React Router v6
