@@ -7,14 +7,14 @@ import Layout from './layouts/Layout.jsx'
 import Home from './components/Home.jsx'
 import Login from './components/Login.jsx'
 import CreatePost from './components/CreatePost.jsx'
-import ManagePost from './components/ManagePost.jsx'
+import ManagePosts from './components/ManagePosts.jsx'
 import Unauthorized from './components/Unauthorized.jsx'
 import RequireAuth from './components/RequireAuth.jsx'
 import Missing from './components/Missing.jsx'
 
 function App () {
   return (
-    <><Navbar />
+    <>
     <Routes>
       <Route path='/' element={<Layout />}>
         {/* public routes */}
@@ -23,12 +23,10 @@ function App () {
         {/*  protected routes */}
         <Route element={<RequireAuth />}>
           <Route path='/' element={<Home />} />
-        </Route>
-        <Route element={<RequireAuth />}>
+        
           <Route path='admin/post/create' element={<CreatePost />} />
-        </Route>
-        <Route element={<RequireAuth />}>
-          <Route path='admin/posts' element={<ManagePost />} />
+        
+          <Route path='admin/posts' element={<ManagePosts />} />
         </Route>
         {/* catch all */}
         <Route path='*' element={<Missing />} />

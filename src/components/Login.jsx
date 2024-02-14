@@ -5,6 +5,7 @@ import axios from '../lib/axios.js'
 const LOGIN_URL = 'api/login';
 
 const Login = () => {
+  // Login design from Dave Gray's Youtube videos called React Persistent User Auth w/ JWT and React Protected Routes | Role-Based Auth| React Router v6
   const { setAuth } = useAuth()
 
   const navigate = useNavigate()
