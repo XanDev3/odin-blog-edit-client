@@ -64,4 +64,42 @@ body {
 .unpublish-btn {
   color: gray;
 }
+.create-post-h1{
+  margin-bottom: 0;
+}
+.create-post-form{
+  margin:0;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+#title{
+  font-weight: 600;
+  margin-left: .25rem;
+}
+.create-post-checkbox{
+  transform: scale(1.5);
+  margin-left: 1rem;
+}
+.form-group {
+  font-family: Josefin Sans;
+  font-weight: 500;
+  margin: .5rem;
+  min-height: 4vh;
+}
+.form-group button{
+  color:#2e2e2e;
+  background-color:rgb(72, 182, 109);
+}
+.create-post-input{
+  margin: 1rem;
+}
+.tox{
+  margin: 1rem;
+  align-self: center;
+}
+.tox-p{
+  font-size: 1.2rem;
+  margin-top:-10px;
+}
 

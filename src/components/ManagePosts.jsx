@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from '../lib/axios'
 import useAuth from '../hooks/useAuth'
-//TODO create a hook to publish and unpublish posts
+
+
 
 function ManagePosts () {
   const [posts, setPosts] = useState([])
@@ -14,9 +15,6 @@ function ManagePosts () {
     axios
       .get('posts')
       .then(response => {
-        /*         console.log('posts: ', response.data)
-        const post1 = response.data.allPosts[0]._id
-        console.log('post1: ', post1) */
         setPosts(response.data.allPosts)
         setIsLoading(false)
       })
@@ -99,7 +97,7 @@ function ManagePosts () {
                 <p>
                   {/* isPub: {JSON.stringify(post.isPublished)} */} {post.content}
                 </p>
-                <Link to={`/posts/${post._id}//update`}>
+                <Link to={`/posts/${post._id}/update`}>
                   <button className='edit-btn'>Edit</button>
                 </Link>
                 {post.isPublished === true ? (
