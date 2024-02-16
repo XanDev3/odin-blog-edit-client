@@ -10,6 +10,15 @@ function CreatePost () {
   const { auth } = useAuth()
   const { post, setPost } = usePost()
 
+  //clear out old post state on first render
+  useEffect(() => {
+    setPost({
+      title: '',
+      content: '',
+      isPublished: false
+    })
+  }, [])
+  
   const handleTextChange = event => {
     const { name, value } = event.target
     setPost(prev => ({

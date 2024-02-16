@@ -97,7 +97,7 @@ function ManagePosts () {
                 <p>
                   {/* isPub: {JSON.stringify(post.isPublished)} */} {post.content}
                 </p>
-                <Link to={`/posts/${post._id}/update`}>
+                <Link to={`/admin/posts/${post._id}/update`}>
                   <button className='edit-btn'>Edit</button>
                 </Link>
                 {post.isPublished === true ? (
@@ -118,7 +118,7 @@ function ManagePosts () {
                   </button>
                 )}
                 {/* TODO - create third button to publish and unpublish posts */}
-                <Link to={`/posts/${post._id}/delete`}>
+                <Link to={`/admin/posts/${post._id}/delete`}>
                   <button className='delete-btn'>Delete</button>
                 </Link>
               </div>

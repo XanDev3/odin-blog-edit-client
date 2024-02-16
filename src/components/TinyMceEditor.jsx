@@ -6,7 +6,7 @@ export default function TinyMceEditor ({ initialValue, limit }) {
   const sizeLimit = limit ?? 100
   const { post, setPost } = usePost()
   const [value, setValue] = React.useState(
-    initialValue ?? 'This is the initial content'
+    initialValue ?? 'Include your blog post content here'
   )
   const [length, setLength] = React.useState(0)
   const editorRef = useRef(null)
@@ -18,6 +18,7 @@ export default function TinyMceEditor ({ initialValue, limit }) {
   const handleInit = (evt, editor) => {
     editorRef.current = editor // from basic deployment
     setLength(editor.getContent({ format: 'text' }).length) //A method for retrieving the character count in the textarea
+    setValue(initialValue ?? 'Include your blog post content here')
   }
   const handleUpdate = (value, editor) => {
     const length = editor.getContent({ format: 'text' }).length
