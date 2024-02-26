@@ -44,7 +44,8 @@ const Login = () => {
       console.log(JSON.stringify(response));
       const token = response?.data?.token
       const isAdmin = response?.data?.admin
-      setAuth({ isAdmin, token })
+      const user = response?.data?.user
+      setAuth({ isAdmin, user, token })
       setUsername('')
       setPwd('')
       navigate(from, { replace: true })
@@ -71,27 +72,26 @@ const Login = () => {
         {errMsg}
       </p>
       <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='username'>Username:</label>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type='text'
           id='username'
+          placeholder="Username"
           ref={userRef}
           autoComplete='off'
           onChange={e => setUsername(e.target.value)}
           value={username}
           required
         />
-
-        <label htmlFor='password'>Password:</label>
         <input
           type='password'
           id='password'
+          placeholder='Password'
           onChange={e => setPwd(e.target.value)}
           value={pwd}
           required
         />
-        <button>Sign In</button>
+        <button className='login-button'>Sign In</button>
       </form>
     </section>
   )

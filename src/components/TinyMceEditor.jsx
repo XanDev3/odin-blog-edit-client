@@ -1,14 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import usePost from '../hooks/usePost'
+import useComments from '../hooks/useComments'
 
 export default function TinyMceEditor ({ initialValue, limit }) {
   const sizeLimit = limit ?? 100
   const { post, setPost } = usePost()
-  const [value, setValue] = React.useState(
+  const { comments, setComments } = useComments()
+  const [value, setValue] = useState(
     initialValue ?? 'Include your blog post content here'
   )
-  const [length, setLength] = React.useState(0)
+  const [text, setText] = useState('')
+  const [length, setLength] = useState(0)
   const editorRef = useRef(null)
   const log = () => {
     if (editorRef.current) {

@@ -5,6 +5,7 @@ import useAuth from '../hooks/useAuth'
 
 
 
+
 function ManagePosts () {
   const [posts, setPosts] = useState([])
   const [errMsg, setErrMsg] = useState('')
@@ -30,6 +31,11 @@ function ManagePosts () {
         }
       })
   }, [])
+
+  function extractText (contentStr) {
+    const text = contentStr.replace(/(<([^>]+)>)|(&nbsp;|&#160;)/gi, "")
+    return text
+  }
 
   function handlePublish (post) {
     const postId = post._id
@@ -95,7 +101,7 @@ function ManagePosts () {
               <div key={post._id} className='post-card'>
                 <p>{post.title}</p>
                 <p>
-                  {/* isPub: {JSON.stringify(post.isPublished)} */} {post.content}
+                {extractText(post.content)}
                 </p>
                 <Link to={`/admin/posts/${post._id}/update`}>
                   <button className='edit-btn'>Edit</button>
@@ -117,7 +123,6 @@ function ManagePosts () {
                     Publish
                   </button>
                 )}
-                {/* TODO - create third button to publish and unpublish posts */}
                 <Link to={`/admin/posts/${post._id}/delete`}>
                   <button className='delete-btn'>Delete</button>
                 </Link>

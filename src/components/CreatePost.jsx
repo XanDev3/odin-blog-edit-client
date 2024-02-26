@@ -34,7 +34,7 @@ function CreatePost () {
   }
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(post)
+
     axios
       .post(
         '/posts',
@@ -56,7 +56,7 @@ function CreatePost () {
           navigate('/admin/posts')
         }
         else{
-          throw new Error('Failed to update post')
+          throw new Error('Failed to create post')
         }
       })
       .catch(err => {
@@ -67,7 +67,7 @@ function CreatePost () {
         } else if (err.response?.status === 401) {
           setErrMsg('Unauthorized')
         } else {
-          setErrMsg('Login Failed')
+          setErrMsg('Post Create Failed')
         }
       })
   }

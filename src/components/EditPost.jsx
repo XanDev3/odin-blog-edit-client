@@ -4,6 +4,7 @@ import axios from '../lib/axios'
 import useAuth from '../hooks/useAuth'
 import usePost from '../hooks/usePost'
 import TinyMceEditor from './TinyMceEditor'
+import Comments from './Comments'
 
 function EditPost () {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ function EditPost () {
         } else if (err.response?.status === 401) {
           setErrMsg('Unauthorized')
         } else {
-          setErrMsg('Login Failed')
+          setErrMsg('Update Failed')
         }
       })
   }
@@ -120,6 +121,7 @@ function EditPost () {
           </button>
         </div>
       </form>
+      <Comments postId={id}></Comments>
     </>
   )
 }
