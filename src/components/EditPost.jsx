@@ -16,8 +16,8 @@ function EditPost () {
     axios.get(`/posts/${id}`)
     .then(response => {
         if (response.status === 200) {
-          console.log('successful get')
-          console.log(response.data.post)
+/*           console.log('successful get')
+          console.log(response.data.post) */
           setPost(response.data.post)
         } else {
           throw new Error('Failed to get post')
@@ -116,7 +116,7 @@ function EditPost () {
         </div>
         {/* setting button to button for testing/validating data until enabling submitting the form */}
         <div className='form-group'>
-          <button type='button' onClick={handleSubmit}>
+          <button type='submit' onClick={handleSubmit}>
             Submit
           </button>
         </div>

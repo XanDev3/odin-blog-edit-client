@@ -7,9 +7,9 @@ const Comment = (comment, { setUpdateComments }) => {
 
   const onSubmit = () => {
     setEditing = false
-    setUpdateComments = prev => {
-      !prev.updateComments
-    }
+    setUpdateComments(updateComments => {
+      !updateComments
+    })
   }
   const date = new Date(comment.updatedAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -18,21 +18,25 @@ const Comment = (comment, { setUpdateComments }) => {
   })
   return (
     <>
-    { editing ?
-      <article className='comment-card'>
-        <FaX className='close-icon' />
-        <h5 className='comment-author'>{comment?.author.username} said:</h5>
-        <div className='comment-card-content'>{comment.content}</div>
-        <div className='comment-card-date'>{date}</div>
-      </article>
-        : 
+      {editing ? (
         <article className='comment-card'>
-        <FaX className='close-icon' />
-        <h5 className='comment-author'>{comment?.author.username} said:</h5>
-        <TinyMceEditor limit='500' className='tinymce' initialValue={comment.content}></TinyMceEditor>
-        <div className='comment-card-date'>{date}</div>
-      </article>
-    }   
+          <FaX className='close-icon' />
+          <h5 className='comment-author'>{comment?.author.username} said:</h5>
+          <div className='comment-card-content'>{comment.content}</div>
+          <div className='comment-card-date'>{date}</div>
+        </article>
+      ) : (
+        <article className='comment-card'>
+          <FaX className='close-icon' />
+          <h5 className='comment-author'>{comment?.author.username} said:</h5>
+          <TinyMceEditor
+            limit='500'
+            className='tinymce'
+            initialValue={comment.content}
+          ></TinyMceEditor>
+          <div className='comment-card-date'>{date}</div>
+        </article>
+      )}
     </>
   )
 }

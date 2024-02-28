@@ -11,7 +11,8 @@ const Comments = ({ postId }) => {
   const [confirmDeleteShow, setConfirmDeleteShow] = useState({})
   const { auth } = useAuth()
   const [parentPostId, setParentPostId] = useState(postId)
-  const [updateComments, setUpdateComments] = useState(false)
+  const [successfulDelete, setSuccessfulDelete] = useState(false)
+
   useEffect(() => {
     console.log('initial postId', parentPostId)
     axios
@@ -19,6 +20,7 @@ const Comments = ({ postId }) => {
       .then(response => {
         setComments(response.data.allComments)
         setIsLoading(false)
+        setSuccessfulDelete(false)
       })
       .catch(err => {
         if (!err?.response) {
@@ -33,23 +35,8 @@ const Comments = ({ postId }) => {
           setErrMsg('Get allComments Failed')
         }
       })
-  }, [updateComments])
-  const handleShow = id => {
-    setConfirmDeleteShow({ ...confirmDeleteShow, [id]: !confirmDeleteShow[id] })
-  }
-  const handleClose = id => {
-    setConfirmDeleteShow({ ...confirmDeleteShow, [id]: !confirmDeleteShow[id] })
-  }
-  const handleConfirm = () => {
-    console.log('delete')
-  }
-  const addComment = id => {
-    console.log('id', id)
-    setConfirmDeleteShow(confirmDeleteShow => ({
-      ...confirmDeleteShow,
-      [id]: false
-    }))
-  }
+  }, [successfulDelete, auth.token])
+
   useEffect(() => {
     comments.map(comment => {
       setConfirmDeleteShow(confirmDeleteShow => ({
@@ -57,11 +44,59 @@ const Comments = ({ postId }) => {
         [comment._id]: false
       }))
     })
-  }, [comments])
+  }, [])
+
+  const toggleConfirm = id => {
+    setConfirmDeleteShow({ ...confirmDeleteShow, [id]: !confirmDeleteShow[id] })
+  }
+
+  const handleDelete = commentId => {
+    console.log('delete')
+    axios
+      .delete(`/posts/${parentPostId}/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          console.log('successful delete')
+          console.log(response.data)
+          /* setComments(prevComments => {
+           prevComments.filter(comment => {
+              comment._id !== response.data.commentToDelete._id
+            })
+          }) */
+          setSuccessfulDelete(true)
+        } else {
+          throw new Error('Failed to delete comment')
+        }
+      })
+      .then(console.log(comments))
+      .catch(err => {
+        if (!err?.response) {
+          setErrMsg('No Server Response')
+        } else if (err.response?.status === 400) {
+          setErrMsg('Missing Username or Password')
+        } else if (err.response?.status === 401) {
+          setErrMsg('Unauthorized')
+        } else {
+          setErrMsg('Delete Failed')
+        }
+      })
+  }
+ /*  const addComment = id => {
+    console.log('id', id)
+    setConfirmDeleteShow(confirmDeleteShow => ({
+      ...confirmDeleteShow,
+      [id]: false
+    }))
+  } */
 
   if (isLoading) {
     return <p>Loading...</p>
-  } else if (comments.length < 1) {
+  } else if (comments?.length < 1) {
     return (
       <p className='comments-section-empty'>This post has no comments yet...</p>
     )
@@ -78,8 +113,9 @@ const Comments = ({ postId }) => {
           return (
             <article key={comment._id} className='comment-card'>
               <button
+                type='button'
                 className='close-icon-btn'
-                onClick={() => handleShow(comment._id)}
+                onClick={() => toggleConfirm(comment._id, event)}
               >
                 <FaX className='close-icon' />
               </button>
@@ -96,14 +132,16 @@ const Comments = ({ postId }) => {
                   </p>
                   <div className='modal-btn-container'>
                     <button
+                      type='button'
                       className='delete-btn modal-btn'
-                      onClick={handleConfirm}
+                      onClick={() => handleDelete(comment._id)}
                     >
                       Delete
                     </button>
                     <button
+                      type='button' /*  */
                       className='cancel-btn modal-btn'
-                      onClick={() => handleClose(comment._id)}
+                      onClick={() => toggleConfirm(comment._id, event)}
                     >
                       Cancel
                     </button>
@@ -115,6 +153,7 @@ const Comments = ({ postId }) => {
             </article>
           )
         })}
+        {/* {successfulDelete && <p>Successfully deleted comment!</p>} */}
       </section>
     )
   }
