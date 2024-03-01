@@ -62,7 +62,6 @@ const Comments = ({ postId }) => {
       .then(response => {
         if (response.status === 200) {
           console.log('successful delete')
-          console.log(response.data)
           /* setComments(prevComments => {
            prevComments.filter(comment => {
               comment._id !== response.data.commentToDelete._id
@@ -73,7 +72,6 @@ const Comments = ({ postId }) => {
           throw new Error('Failed to delete comment')
         }
       })
-      .then(console.log(comments))
       .catch(err => {
         if (!err?.response) {
           setErrMsg('No Server Response')

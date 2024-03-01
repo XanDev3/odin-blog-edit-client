@@ -39,9 +39,6 @@ const Login = () => {
           
         }
       )
-      console.log(JSON.stringify(response?.data))
-      console.log("full response")
-      console.log(JSON.stringify(response));
       const token = response?.data?.token
       const isAdmin = response?.data?.admin
       const user = response?.data?.user

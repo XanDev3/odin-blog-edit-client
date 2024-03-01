@@ -55,7 +55,7 @@ function Navbar () {
               }}
             >
               <img
-                src='./user.png'
+                src='./odin-blog-edit-client/user.png'
                 alt=''
                 className='profile-icon'
               ></img>
