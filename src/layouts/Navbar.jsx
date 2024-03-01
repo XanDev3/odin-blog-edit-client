@@ -55,7 +55,7 @@ function Navbar () {
               }}
             >
               <img
-                src='user.png'
+                src='/user.png'
                 alt=''
                 className='profile-icon'
               ></img>
