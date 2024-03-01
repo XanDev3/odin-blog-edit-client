@@ -16,8 +16,6 @@ function EditPost () {
     axios.get(`/posts/${id}`)
     .then(response => {
         if (response.status === 200) {
-/*           console.log('successful get')
-          console.log(response.data.post) */
           setPost(response.data.post)
         } else {
           throw new Error('Failed to get post')
@@ -51,7 +49,6 @@ function EditPost () {
   }
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(post)
     axios
       .put(
         `/posts/${id}`,
@@ -112,7 +109,7 @@ function EditPost () {
         </div>
         <div className='form-group'>
           <label htmlFor='content'>Post Content</label>
-          <TinyMceEditor limit='5000' className='tinymce' initialValue={post.content}></TinyMceEditor>
+          <TinyMceEditor limit='5000' className='tinymce' initialContent={post.content} ></TinyMceEditor>
         </div>
         {/* setting button to button for testing/validating data until enabling submitting the form */}
         <div className='form-group'>

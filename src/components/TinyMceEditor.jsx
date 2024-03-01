@@ -1,44 +1,40 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import usePost from '../hooks/usePost'
 import useComments from '../hooks/useComments'
 
-export default function TinyMceEditor ({ initialValue, limit }) {
+const charCount = editor => editor.getContent({ format: 'text' }).length
+
+export default function TinyMceEditor ({ initialContent, limit }) {
   const sizeLimit = limit ?? 100
   const { post, setPost } = usePost()
   const { comments, setComments } = useComments()
   const [value, setValue] = useState(
-    initialValue ?? 'Include your blog post content here'
+    initialContent ?? '<p>Type Blog Post content here...</p>'
   )
-  const [text, setText] = useState('')
+  /*   const [text, setText] = useState('') */
   const [length, setLength] = useState(0)
   const editorRef = useRef(null)
+
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent())
     }
   }
   const handleInit = (evt, editor) => {
-    editorRef.current = editor // from basic deployment
-    setLength(editor.getContent({ format: 'text' }).length) //A method for retrieving the character count in the textarea
-    setValue(initialValue ?? 'Include your blog post content here')
+    editorRef.current = editor
+    setLength(editor.getContent({ format: 'text' }).length)
+    //A method for retrieving the character count in the textarea
   }
   const handleUpdate = (value, editor) => {
-    const length = editor.getContent({ format: 'text' }).length
-    const text = editor.getContent()
+    const length = charCount(editor)
+    const text = editor.getContent({ format: 'text' })
     if (length <= sizeLimit) {
       setValue(value)
       setLength(length)
       setPost(prev => ({ ...prev, content: text }))
     }
-  }
-  const handleContent = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent({ format: 'text' }))
-    }
-  }
-  const returnContent = () => {
-    return editor.getContent({ format: 'text' })
+    console.log(value)
   }
   const handleBeforeAddUndo = (evt, editor) => {
     const length = editor.getContent({ format: 'text' }).length
@@ -53,8 +49,9 @@ export default function TinyMceEditor ({ initialValue, limit }) {
       <Editor
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         onInit={handleInit}
-        initialValue={initialValue}
-        value={value}
+        //this initialValue has to not be passed from another component
+        initialValue={'<p>Type Blog Post content here...</p>'}
+        value={initialContent}
         onEditorChange={handleUpdate}
         onBeforeAddUndo={handleBeforeAddUndo}
         init={{

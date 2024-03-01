@@ -5,18 +5,19 @@ import { Link, useMatch, useResolvedPath, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
 function Navbar () {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
   const [isAccountMenuExpanded, setAccountMenuExpansion] = useState(false)
   const navigate = useNavigate()
 
   const handleLogout = e => {
-    e.prevent.default
+    e.preventDefault()
 
     axios
       .get('/logout')
       .then(response => {
         if (response.status === 200) {
           console.log('successful logout')
+          setAuth({})
           navigate('/')
         } else {
           throw new Error('Failed to log out')
