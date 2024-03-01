@@ -20,17 +20,17 @@ function App () {
     <Routes>
       <Route path='/' element={<Layout />}>
         {/* public routes */}
-        <Route path='login' element={<Login />} />
-        <Route path='unauthorized' element={<Unauthorized />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/unauthorized' element={<Unauthorized />} />
         {/*  protected routes */}
         <Route element={<RequireAuth />}>
           <Route path='/' element={<Home />} />
         
-          <Route path='admin/post/create' element={<CreatePost />} />
-          <Route path='admin/posts/:id/update' element={<EditPost />} />
-          <Route path='admin/posts/:id/delete' element={<DeletePost />} />
-          <Route path='admin/posts' element={<ManagePosts />} />
-          <Route path='logout' element={<Layout />} />
+          <Route path='/admin/post/create' element={<CreatePost />} />
+          <Route path='/admin/posts/:id/update' element={<EditPost />} />
+          <Route path='/admin/posts/:id/delete' element={<DeletePost />} />
+          <Route path='/admin/posts' element={<ManagePosts />} />
+          <Route path='/logout' element={<Layout />} />
           
         </Route>
         {/* catch all */}
