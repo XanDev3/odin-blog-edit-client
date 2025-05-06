@@ -1,6 +1,6 @@
 # Odin Blog Edit Client
 
-![Screenshot](./.jpg)
+![Screenshot](./Odin-edit-api.png)
 
 
 
@@ -28,7 +28,7 @@ I created this project mainly to practice full-stack development with a focus on
 
 ```bash
 # Clone this repository
-$ git clone git@github.com:xandev3/odin-blog-edit-client.git
+$ git clone https://github.com/XanDev3/odin-blog-edit-client.git
 
 # Go into the repository
 $ cd odin-blog-edit-client
