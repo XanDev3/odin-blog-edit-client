@@ -50,7 +50,7 @@ export default function TinyMceEditor ({ initialContent, limit }) {
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         onInit={handleInit}
         //this initialValue has to not be passed from another component
-        initialValue={'<p>Type Blog Post content here...</p>'}
+        initialValue='<p>Type Blog Post content here...</p>'
         value={initialContent}
         onEditorChange={handleUpdate}
         onBeforeAddUndo={handleBeforeAddUndo}
@@ -59,36 +59,64 @@ export default function TinyMceEditor ({ initialContent, limit }) {
           menubar: false,
           plugins: [
             'advlist',
-            'autolink',
-            'lists',
-            'link',
-            'image',
-            'charmap',
-            'preview',
             'anchor',
-            'searchreplace',
-            'visualblocks',
-            'code',
+            'autolink',
+            'code', 
+            'charmap',
+            'emoticons',
             'fullscreen',
             'insertdatetime',
+            'image',
+            'lists',
+            'linkchecker',
+            'link',
+            'image',
+            'preview',
+            'pagebreak',
+            'searchreplace',
             'media',
             'table',
-            'code',
+            'template',
             'help',
-            'wordcount'
+            'visualblocks',
+            'wordcount',
           ],
           toolbar:
-            'undo redo | blocks fontfamily fontsize | ' +
-            'bold italic forecolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help',
+            'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+            'forecolor backcolor emoticons | help',
           font_family_formats:
             'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Josefin Sans=josefin sans; Lora=lora; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Varela=varela; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
           content_style:
-            "@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&family=Lora:ital,wght@1,400..700&family=Varela&display=swap'); body { font-family:Josefin Sans,Helvetica,Arial,Lora,Varela,sans-serif; font-size:14px }; h1,h2,h3,h4 { font-family: 'Josefin Sans';}",
+            `@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&family=Lora:ital,wght@1,400..700&family=Varela&display=swap'); 
+            body { font-family:Josefin Sans,Helvetica,Arial,Lora,Varela,sans-serif,'Roboto', serif; font-size:14px }; 
+            h1,h2,h3,h4 { font-family: 'Josefin Sans';}
+            img {
+                 height: auto;
+                 margin: auto;
+                 padding: 10px;
+                 display: block;
+             }
+            img.medium {
+                 max-width: 25%;
+             }
+             a { 
+                 color:#116B59;
+             }
+             .related-content {
+                 padding:0 10px;
+                 margin: 0 0 15px 15px;
+                 background:#eee;
+                 width:200px;
+                 float:right;
+             }`,
+          valid_classes: {
+            img: "medium",
+            div: "related-content"
+          },
           width: '70vw',
           skin: 'oxide-dark',
-          content_css: 'dark'
+          content_css: 'dark',
         }}
       />
       <p className='tox-p'>Remaining: {sizeLimit - length}</p>
