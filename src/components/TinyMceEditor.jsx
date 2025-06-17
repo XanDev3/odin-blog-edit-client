@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import usePost from '../hooks/usePost'
 import useComments from '../hooks/useComments'
+import Prism from 'prismjs';
 
 const charCount = editor => editor.getContent({ format: 'text' }).length
 
@@ -18,7 +19,7 @@ export default function TinyMceEditor ({ initialContent, limit }) {
 
   const log = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent())
+      //console.log(editorRef.current.getContent())
     }
   }
   const handleInit = (evt, editor) => {
@@ -32,7 +33,7 @@ export default function TinyMceEditor ({ initialContent, limit }) {
     if (length <= sizeLimit) {
       setValue(value)
       setLength(length)
-      setPost(prev => ({ ...prev, content: text }))
+      setPost(post => ({ ...post, content: value }))
     }
     console.log(value)
   }
@@ -58,16 +59,17 @@ export default function TinyMceEditor ({ initialContent, limit }) {
           height: 500,
           menubar: false,
           plugins: [
-            'advlist',
             'anchor',
             'autolink',
-            'code', 
+            'code',
+            'codesample', 
             'charmap',
             'emoticons',
             'fullscreen',
             'insertdatetime',
             'image',
             'lists',
+            'advlist',
             'linkchecker',
             'link',
             'image',
@@ -76,18 +78,33 @@ export default function TinyMceEditor ({ initialContent, limit }) {
             'searchreplace',
             'media',
             'table',
-            'template',
             'help',
             'visualblocks',
             'wordcount',
           ],
+          codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'Solidity', value: 'solidity' },
+            { text: 'PHP', value: 'php' },
+            { text: 'Ruby', value: 'ruby' },
+            { text: 'Python', value: 'python' },
+            { text: 'Java', value: 'java' },
+            { text: 'C', value: 'c' },
+            { text: 'C#', value: 'csharp' },
+            { text: 'C++', value: 'cpp' }
+          ],
+/*           pre_process: (editorRef, el) => {
+            Prism.highlightAllUnder(editorRef);
+          }, */
           toolbar:
-            'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'undo redo | styles | codesample | bold italic | alignleft aligncenter alignright alignjustify | ' +
             'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
             'forecolor backcolor emoticons | help',
           font_family_formats:
             'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Josefin Sans=josefin sans; Lora=lora; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Varela=varela; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
-          content_style:
+/*           content_style:
             `@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&family=Lora:ital,wght@1,400..700&family=Varela&display=swap'); 
             body { font-family:Josefin Sans,Helvetica,Arial,Lora,Varela,sans-serif,'Roboto', serif; font-size:14px }; 
             h1,h2,h3,h4 { font-family: 'Josefin Sans';}
@@ -109,11 +126,11 @@ export default function TinyMceEditor ({ initialContent, limit }) {
                  background:#eee;
                  width:200px;
                  float:right;
-             }`,
-          valid_classes: {
+             }`, */
+/*           valid_classes: {
             img: "medium",
             div: "related-content"
-          },
+          }, */
           width: '70vw',
           skin: 'oxide-dark',
           content_css: 'dark',

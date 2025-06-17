@@ -33,6 +33,10 @@ h5{
   font-size: 1.2rem;
   line-height: 1;
 }
+label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 
 button {
   border-radius: 8px;

@@ -243,15 +243,22 @@ body {
 .form-group {
   font-family: Josefin Sans;
   font-weight: 500;
-  margin: 0.5rem;
   min-height: 4vh;
+  margin: 1rem;;
 }
 .form-group button {
   color: #2e2e2e;
   background-color: rgb(72, 182, 109);
+  margin-top: -.25rem;
 }
 .create-post-input {
-  margin: 1rem;
+  margin: 0 0 1rem;
+  width: 34rem;
+}
+.errmsg{
+  color: red;
+  font-size: 1.2rem;
+  margin-top: 0.25rem;
 }
 /* TinyMCE Editor */
 .tox {

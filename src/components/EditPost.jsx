@@ -99,6 +99,7 @@ function EditPost () {
             value={post.title}
             onChange={handleTextChange}
           />
+          <br />
           <label htmlFor='checkbox'>Publish Post?</label>
           <input
             className='create-post-checkbox'

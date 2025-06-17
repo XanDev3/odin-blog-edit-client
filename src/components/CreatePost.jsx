@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from '../lib/axios'
 import useAuth from '../hooks/useAuth'
@@ -9,6 +9,10 @@ function CreatePost () {
   const navigate = useNavigate();
   const { auth } = useAuth()
   const { post, setPost } = usePost()
+  const errRef = useRef()
+
+  const [errMsg, setErrMsg] = useState('')
+  
 
   //clear out old post state on first render
   useEffect(() => {
@@ -18,6 +22,10 @@ function CreatePost () {
       isPublished: false
     })
   }, [])
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [post.title, post.content]) 
   
   const handleTextChange = event => {
     const { name, value } = event.target
@@ -63,7 +71,8 @@ function CreatePost () {
         if (!err?.response) {
           setErrMsg('No Server Response')
         } else if (err.response?.status === 400) {
-          setErrMsg('Missing Username or Password')
+          setErrMsg(`${err.response.data.errors[0]}`)
+          
         } else if (err.response?.status === 401) {
           setErrMsg('Unauthorized')
         } else {
@@ -85,6 +94,7 @@ function CreatePost () {
             value={post.title}
             onChange={handleTextChange}
           />
+          <br />
           <label htmlFor='checkbox'>Publish Post?</label>
           <input
             className='create-post-checkbox'
@@ -95,6 +105,13 @@ function CreatePost () {
         </div>
         <div className='form-group'>
           <label htmlFor='content'>Post Content</label>
+        <p
+          ref={errRef}
+          className={errMsg ? 'errmsg' : 'offscreen'}
+          aria-live='assertive'
+        >
+        {errMsg}
+        </p>
           <TinyMceEditor limit='5000' className='tinymce'></TinyMceEditor>
         </div>
         {/* setting button to button for testing/validating data until enabling submitting the form */}
@@ -104,6 +121,7 @@ function CreatePost () {
           </button>
         </div>
       </form>
+      
     </>
   )
 }
